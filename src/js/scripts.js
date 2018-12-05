@@ -6,10 +6,6 @@ class WhackAMini {
     this.minis = minis;
     this.scoreCounter = scoreCounter;
     this.alertContainer = alertContainer;
-    // Setup Images
-    this.miniImgSrc = '../images/mini-cooper.png';
-    this.miniBonkedImg = new Image();
-    this.miniBonkedImg.src = '../images/mini-cooper-clicked.png';
     // Setup misc game variables
     this.prevMiniNumber = null;
     this.timeUp = false;
@@ -23,11 +19,12 @@ class WhackAMini {
     this.alertContainer.innerHTML = '<h2>Game Started</h2>';
     this.alertContainer.classList.remove('game-over');
     this.alertContainer.classList.add('game-started');
-    // Setup all the intial game settings
     this.score = 0;
     this.scoreCounter.innerHTML = this.score;
     this.timeUp = false;
     this.prevMiniNumber = null;
+
+
     // Start peeking the minis
     this.peek();
     this.gameTimer = setTimeout(() => {
@@ -44,6 +41,8 @@ class WhackAMini {
     this.alertContainer.classList.remove('game-started');
     this.alertContainer.innerHTML = '<h2>Instructions</h2><p>Click start to begin the game</p>';
     this.timeUp = true;
+
+
     for (let i = 0; i < this.minis.length; i++) {
       if (this.minis[i].classList.contains('up')) {
         this.minis[i].classList.remove('up');
@@ -68,11 +67,11 @@ class WhackAMini {
 
   // Function that handles you clicking on the mini and making it do its fun animation
   bonk (mini) {
-    mini.setAttribute('src', this.miniBonkedImg.src);
+    mini.setAttribute('src', '../images/mini-cooper-clicked.png');
     mini.classList.remove('up');
     mini.classList.add('bonked');
     setTimeout(() => {
-      mini.setAttribute('src', this.miniImgSrc);
+      mini.setAttribute('src', '../images/mini-cooper.png');
       mini.classList.remove('bonked');
     }, 300);
     this.score++;
@@ -94,7 +93,7 @@ class WhackAMini {
 // Declare the elements required for the game class
 const startButton = document.querySelector('#btn-start');
 const resetButton = document.querySelector('#btn-reset');
-const scoreCounter = document.querySelector('#score-out');
+const scoreCounter = document.querySelector('#score-value');
 const alertContainer = document.querySelector('#alert-container');
 let minis = document.getElementsByClassName('mini-pic');
 minis = [...minis];
