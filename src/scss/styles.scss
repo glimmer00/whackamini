@@ -1,0 +1,273 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-image: url('../images/bg.jpg');
+  background-size: cover;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 40px;
+}
+
+$brand: #0B497F;
+$brandAlt: #ED5B34;
+$success: #29A745;
+$warn: #FFC107;
+$danger: #DC3545;
+
+button {
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, 
+              transform 150ms ease;
+
+  &.btn-brand {
+    background: $brand;
+
+    &:focus, &:hover {
+      background: #2D64A5;
+    }
+  }
+
+  &.btn-secondary {
+    background: $brandAlt;
+
+    &:focus, &:hover {
+      background: #E67E21;
+    }
+  }
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+header {
+  color: #fff;
+  position: relative;
+  text-align: center;
+  flex: 100%;
+
+  h1 {
+    margin-top: 0px
+  }
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 200;
+  }
+}
+
+main {
+  display: flex;
+  margin: auto;
+  max-width: 800px;
+  border: 3px solid black;
+  margin-top: 10px;
+  background-color: #fff;
+  flex-flow: row wrap;
+  padding: 0 20px 50px 20px;
+
+  h1 {
+    text-align: center;
+  }
+
+  .input-controls {
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+    flex: 100%;
+
+    button {
+      flex: 0.3;
+    }
+  }
+
+  .score-container {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    flex: 25%;
+    flex-direction: column;
+    padding: 10px;
+    border: 2px solid black;
+    text-align: center;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 24px;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+  }
+
+  .alert-section {
+    display: flex;
+    align-items: center ;
+    flex: 75%;
+    margin-top: 30px;
+    flex-direction: column;
+    padding: 10px;
+    border: 2px solid black;
+    text-align: center;
+    h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 24px;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+    &.game-started, &.game-paused, &.game-over {
+      color: #fff;
+    }
+    &.game-started {
+      background-color: $success;
+    }
+    &.game-paused {
+      background-color: $warn;
+    }
+    &.game-over {
+      background-color: $danger;
+    }
+  }
+
+  .game-container {
+    display: flex;
+    flex-flow: row wrap;
+
+    .box {
+      display: flex;
+      flex: 30%;
+      width: 200px;
+      height: 200px;
+      padding: 10px;
+      float: left;
+      position: relative;
+      overflow: hidden;
+
+      .mini-pic {
+        width: 50%;
+        flex: 30%;
+        position: absolute;
+        left: 45px;
+        bottom: -80px;
+        transition: bottom 0.5s ease;
+
+        @media (max-width: 768px) {
+          left: 25px;
+        }
+        @media (max-width: 414px) {
+          left: 10px;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &.up {
+          bottom: 0;
+        }
+        &.bonked {
+          animation-name: shake;
+          animation-duration: 0.5s;
+          animation-fill-mode: both;
+        }
+      }
+
+      .dirt-pic {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 3;
+      }
+
+      .mask {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 30px;
+        width: 100%;
+        background-color: white;
+        z-index: 2;
+
+        @media (max-width: 414px) {
+          height: 10px;
+        }
+      }
+    }
+  }
+}
+
+/* Animations Borrowed from Google*/
+
+@-webkit-keyframes shake {
+
+  from,
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+@keyframes shake {
+
+  from,
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
+  }
+}
